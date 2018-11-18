@@ -1,0 +1,33 @@
+
+#+TITLE: git-log-org
+#+AUTHOR: Bibek Pokharel (pokharel@usc.edu)
+
+Start with basic exports:
+
+#+BEGIN_SRC bash  -r :tangle git-log-org.sh
+#!/bin/bash
+#+END_SRC
+
+It is possible to call this function not from the parent directory. So the first command is to go back to the parent directory. 
+#+BEGIN_SRC bash  -r :tangle git-log-org.sh
+cd $(git rev-parse --show-toplevel)
+#+END_SRC
+
+Now we call git log, with a format that prefaces the titles by * and then inserts the body and also export it to a files named by =journal_from_git_log.org=. If you want to change the filename you should do it here. 
+
+#+BEGIN_SRC bash  -r :tangle git-log-org.sh
+git log --date=short --pretty=tformat:"* %s [%ad]%n%b" > journal_from_git_log.org
+#+END_SRC
+
+I like to export my files as pdf, so I will include the title and the author name in the org file. This piece of code can be removed if you do not care about such info. Also, note that this assumes that there is only one author for the entire repo, or that this report is being generated from some author. We have to change git log call above if we want to add info about the author for each entry or if we want to filter entries for a single author. Both of which are quite simply done. 
+#add info about the author and the repository
+
+#+BEGIN_SRC bash  -r :tangle git-log-org.sh
+echo -e "#+TITLE: $(printf '%s\n' "${PWD##*/}")\n#+AUTHOR: $(git config user.name)\n\n$(cat journal_from_git_log.org)" > journal_from_git_log.org
+#+END_SRC
+
+Lastly, we go back to the directory we started from. 
+
+#+BEGIN_SRC bash  -r :tangle git-log-org.sh
+cd -
+#+END_SRC

@@ -1,0 +1,27 @@
+* Git-log-org
+
+A simple bash-script to output your git log into an org file. This assumes that your commits are verbose and meaninful enough that seeing them in an org file will be useful to you. This also facilitates exporting to other readable formats like pdf and html. 
+
+The script was generated using org-tangle, which means there is a detailed .org file that explains each line of the code. 
+
+* Example 
+
+#+BEGIN_EXAMPLE
+#+TITLE: git
+#+AUTHOR: Bibek Pokharel
+
+*  Add title and author for the journal [2018-11-17]
+
+* git-log-org.sh remembers directory [2018-11-17]
+First go to the root directory and then go back to the directory we were in after running the journalling
+script.
+
+#+END_EXAMPLE
+
+* Installation 
+
+If you want to allow all users to have access then copy the =git-log-org.sh== to the =/usr/local/bin==. Alternatively, you can put the script in a folder and add that to your $PATH. 
+
+On my machine I have to run =chmod +x git-log-org.sh= before the script is executable. 
+
+
